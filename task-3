@@ -1,0 +1,52 @@
+#TASK-3 .
+# A password generator is a useful tool that generate strong and random passwords for users. This project  aims to create a password generator application using python allowing users to specify the length and complexity of the password.
+# User Input: Prompt the user to specify the desired length of the password. 
+#Generate Password: Use a combination of random characters to generate characters to generate a password of the specified length.
+#Display the Password: Print the generated password on the screen.
+
+import random
+import string
+
+def generate_password():
+    print("🔐 Welcome to the Password Generator!\n")
+
+    # Ask the user how long they want the password to be
+    try:
+        length = int(input("Enter the desired password length: "))
+        if length <= 0:
+            print("❌ Password length must be greater than 0.")
+            return
+    except ValueError:
+        print("❌ Please enter a valid number.")
+        return
+
+    # Ask the user what kind of characters they want in their password
+    include_uppercase = input("Include uppercase letters? (y/n): ").lower() == 'y'
+    include_numbers = input("Include numbers? (y/n): ").lower() == 'y'
+    include_symbols = input("Include special characters (like !, @, #)? (y/n): ").lower() == 'y'
+
+    # Start with lowercase letters
+    characters = string.ascii_lowercase
+
+    # Add other types of characters based on user choices
+    if include_uppercase:
+        characters += string.ascii_uppercase
+    if include_numbers:
+        characters += string.digits
+    if include_symbols:
+        characters += string.punctuation
+
+    # If the user didn't choose any character types
+    if not characters:
+        print("❌ You must select at least one type of character.")
+        return
+
+    # Generate the password by randomly picking characters from the chosen set
+    password = ''.join(random.choice(characters) for _ in range(length))
+
+    # Show the final password to the user
+    print("\n✅ Your generated password is:")
+    print(password)
+
+# Run the password generator function
+generate_password()
