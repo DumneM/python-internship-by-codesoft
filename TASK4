@@ -1,0 +1,66 @@
+# TASK-4
+# User Input: Prompt the user it choose rock, paperm or scissors.
+# Computer Selection: Generate a random choice(rock,paper or scissors) for the computer.
+# Game Logic: Determine the winner based on the user's choice and the computer's choice. Rock beats scissors, scissors beat paper , and paper beats rock.
+# Display Result: Show the user's choiceand the computer choice. Display the result, whenever the user wins, loses or it's a tie.
+# Score Tracking : Keep track of the user's and computer scores for multiple rounds.
+#play again: Ask the user if they wannt to play another round.
+# User Interface: Design a user-friendly interface with clear instruction and feedback.
+
+
+import random
+
+def get_user_choice():
+    print("\n🪨 ROCK 🧻 PAPER ✂️ SCISSORS GAME")
+    print("Choose one: rock, paper, or scissors")
+    user_input = input("Your choice: ").lower()
+    while user_input not in ["rock", "paper", "scissors"]:
+        print("❌ Invalid input. Please choose rock, paper, or scissors.")
+        user_input = input("Your choice: ").lower()
+    return user_input
+
+def get_computer_choice():
+    return random.choice(["rock", "paper", "scissors"])
+
+def determine_winner(user, computer):
+    if user == computer:
+        return "tie"
+    elif (user == "rock" and computer == "scissors") or \
+         (user == "scissors" and computer == "paper") or \
+         (user == "paper" and computer == "rock"):
+        return "win"
+    else:
+        return "lose"
+
+def play_game():
+    user_score = 0
+    computer_score = 0
+
+    while True:
+        user_choice = get_user_choice()
+        computer_choice = get_computer_choice()
+
+        print(f"\n🧍 You chose: {user_choice}")
+        print(f"💻 Computer chose: {computer_choice}")
+
+        result = determine_winner(user_choice, computer_choice)
+
+        if result == "win":
+            print("🎉 You win this round!")
+            user_score += 1
+        elif result == "lose":
+            print("😞 You lose this round.")
+            computer_score += 1
+        else:
+            print("🤝 It's a tie!")
+
+        print(f"\n🏆 Score: You {user_score} - {computer_score} Computer")
+
+        # Ask if user wants to play again
+        play_again = input("\n🔁 Do you want to play again? (y/n): ").lower()
+        if play_again != 'y':
+            print("\nThanks for playing! 👋")
+            break
+
+# Start the game
+play_game()
